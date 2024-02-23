@@ -1,0 +1,18 @@
+﻿@*
+    This section provides a confirmation page for deleting a movie record.
+    The user is presented with the movie title and asked to confirm the deletion.
+    It includes options to either proceed with the deletion or cancel the operation.
+*@
+@{
+}
+
+@model Movie
+
+<h1>Confirm Deletion</h1>
+<h2>@Model.Title</h2>
+<form method="post">
+
+    <input type="hidden" asp-for="MovieId" />
+    <button type="submit">Delete</button>
+    <a class="btn btn-info" asp-controller="Home" asp-action="AllMovies">Cancel</a>
+</form>

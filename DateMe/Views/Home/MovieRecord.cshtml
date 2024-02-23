@@ -1,24 +1,42 @@
 ﻿@model Movie
 @{
+    // Sets the title for the view.
     ViewData["Title"] = "Movie Record";
 }
 
 <h1>Movie Record</h1>
+<!-- Provides instructions for entering movie details. -->
 <p>You must enter the category, title, year, director, and rating. If you choose not to, it will not record the movie. Otherwise, you will get a confirmation that the movie has been recorded. </p>
+<!-- Display a thank you message. -->
 <p>Thank you!</p>
 <form method="post">
-    <label asp-for="Category">Category: </label>
-    <input asp-for="Category" />
+
+    <!-- Hidden field to store the MovieId -->
+    <input type="hidden" asp-for="MovieId" />
     <br />
+    <!-- Dropdown list to select the category -->
+    <select asp-for="CategoryId">
+        <option value="">Select a Category</option>
+        <!-- Iterates over categories to populate the dropdown -->
+        @foreach (Category c in ViewBag.Categories)
+        {
+            <option value="@c.CategoryId">@c.category</option>
+        }
+    </select>
+    <br />
+    <!-- Input field for the movie title -->
     <label asp-for="Title">Title: </label>
     <input asp-for="Title" />
     <br />
+    <!-- Input field for the movie year -->
     <label asp-for="Year">Year: </label>
     <input asp-for="Year" />
     <br />
+    <!-- Input field for the movie director -->
     <label asp-for="Director">Director: </label>
     <input asp-for="Director" />
     <br />
+    <!-- Dropdown list for selecting movie rating -->
     <label asp-for="Rating"> Rating: </label>
     <select asp-for="Rating">
         <option value="G">G</option>
@@ -27,18 +45,29 @@
         <option value="R">R</option>
     </select>
     <br />
+    <!-- Dropdown list for indicating whether the movie is edited -->
     <label asp-for="Edited"> Edited: </label>
     <select asp-for="Edited">
         <option value="true">Yes</option>
         <option value="false">No</option>
     </select>
     <br />
-    <label asp-for="Lent">Lent to: </label>
-    <input asp-for="Lent"/>
+    <!-- Input field for indicating to whom the movie is lent -->
+    <label asp-for="LentTo">Lent to: </label>
+    <input asp-for="LentTo" />
     <br />
+    <!-- Input field for indicating the number of copies stored in Plex -->
+    <label asp-for="CopiedToPlex">CopiedToPlex: </label>
+    <input asp-for="CopiedToPlex" />
+    <br />
+    <!-- Input field for adding notes about the movie -->
     <label asp-for="Notes">Notes: </label>
-    <input asp-for="Notes"/>
+    <input asp-for="Notes" />
     <br />
-    
+
+    <!-- Button to submit the movie -->
     <button type="submit">Submit the movie</button>
+
+    <!-- Displays validation errors summary -->
+    <div asp-validation-summary="All"></div>
 </form>
